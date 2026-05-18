@@ -2,6 +2,7 @@ import axios from "axios"
 import { ref, toValue } from "vue"
 import type { ourEventType } from "./useOurEvent"
 import dayjs from "dayjs"
+import API_KEY_WEATHER from "@/.env"
 
 export function useWeather(innerEvent: ourEventType): useWeatherType {
   // console.log("useWeather innerEvent = ", JSON.stringify(toValue(innerEvent)))
@@ -13,7 +14,7 @@ export function useWeather(innerEvent: ourEventType): useWeatherType {
       const lat = toValueEvent.coordX
       const lon = toValueEvent.coordY
       const formattedDate = dayjs(toValueEvent.datetime).format("YYYY-MM-DD")
-      const apiKey = "NZ6AXSED74RFWWRHALRZFDBSC"
+      const apiKey = API_KEY_WEATHER
       const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/${formattedDate}?key=${apiKey}&unitGroup=metric&lang=ru&contentType=json&elements=datetime,tempmax,tempmin`
       const response = await axios(url)
 
