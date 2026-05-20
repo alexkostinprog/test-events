@@ -1,10 +1,10 @@
 import axios from "axios"
-import { ref, toValue } from "vue"
+import { ref, toValue, type ComputedRef, type Ref } from "vue"
 import type { ourEventType } from "./useOurEvent"
 import dayjs from "dayjs"
-import API_KEY_WEATHER from "@/.env"
+import { API_KEY_WEATHER } from "@/settings"
 
-export function useWeather(innerEvent: ourEventType): useWeatherType {
+export function useWeather(innerEvent: ComputedRef<ourEventType>): useWeatherType {
   // console.log("useWeather innerEvent = ", JSON.stringify(toValue(innerEvent)))
   const toValueEvent = toValue(innerEvent)
   const temperature = ref(0)

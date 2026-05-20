@@ -87,54 +87,20 @@ const formatedDate = (innerDate: string): string => {
   return dayjs(innerDate).format("DD.MM.YYYY в HH:mm")
 }
 
-const editMode = ref(false)
-
-const editEvent = () => {
-  editMode.value = true
-  name.value = curr?.value?.name || ""
-  selectedDate.value = curr?.value?.datetime ? dayjs(curr.value?.datetime).toDate() : null
-  timePicker.value = curr?.value?.datetime ? dayjs(curr.value?.datetime).format("HH:mm") : ""
-  coordX.value = curr?.value?.coordX || 0
-  coordY.value = curr?.value?.coordY || 0
-}
-
-const cancelEditEvent = (): void => {
-  editMode.value = false
-}
-
-const { name, rules, formattedDate, timePicker, coordX, coordY, showMenu, selectedDate } =
-  useOurEvent()
-
-const saveEvent = (
-  iId: number,
-  innerName: string,
-  iSelectedDate: Date | null,
-  iTimePicker: string | null,
-  innerCoordX: number,
-  innerCoordY: number,
-): void => {
-  const datePart = iSelectedDate ? dayjs(iSelectedDate).format("YYYY-MM-DD") : ""
-  const timePart = iTimePicker || "00:00"
-  let tzOffset = dayjs().format("Z")
-  if (tzOffset === "Z") tzOffset = "+00:00"
-  const innerDatetime = iSelectedDate ? `${datePart}T${timePart}:00.000${tzOffset}` : ""
-
-  const innerEvent: ourEventType = {
-    id: iId,
-    name: innerName,
-    datetime: innerDatetime,
-    coordX: innerCoordX,
-    coordY: innerCoordY,
-  }
-  console.log("innerEvent = ", JSON.stringify(innerEvent))
-  const tempIndex = ourEventsStore.value.findIndex((ev) => ev.id === iId)
-  if (tempIndex !== -1) {
-    ourEventsStore.value.splice(tempIndex, 1, innerEvent)
-  }
-
-  // curr.value = ourEventsStore.value.find((ev) => ev.id === innerId)
-  cancelEditEvent()
-}
+const {
+  name,
+  rules,
+  formattedDate,
+  timePicker,
+  coordX,
+  coordY,
+  showMenu,
+  selectedDate,
+  editMode,
+  editEvent,
+  cancelEditEvent,
+  saveEvent,
+} = useOurEvent(curr)
 
 const { temperature, loadWeather } = useWeather(curr)
 </script>

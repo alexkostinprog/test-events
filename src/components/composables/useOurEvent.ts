@@ -1,5 +1,6 @@
 import { useEventsStore } from "@/store/store"
-import { computed, ref, type Ref } from "vue"
+import dayjs from "dayjs"
+import { computed, ref, type ComputedRef, type Ref } from "vue"
 
 export type ourEventBase = {
   name: string
@@ -29,10 +30,10 @@ export const EventListHard = [
   },
 ]
 
-export function useOurEvent(): useOurEventType {
+export function useOurEvent(curr: ComputedRef<ourEventType>): useOurEventType {
   const name = ref("")
   const selectedDate = ref<Date | null>(null)
-  const timePicker = ref(null)
+  const timePicker = ref<string | null>(null)
   const showMenu = ref(false)
   const coordX = ref(0)
   const coordY = ref(0)
@@ -99,6 +100,53 @@ export function useOurEvent(): useOurEventType {
     )
   })
 
+  const editMode = ref(false)
+
+  const editEvent = () => {
+    editMode.value = true
+    name.value = curr?.value?.name || ""
+    selectedDate.value = curr?.value?.datetime ? dayjs(curr.value?.datetime).toDate() : null
+    timePicker.value = curr?.value?.datetime ? dayjs(curr.value?.datetime).format("HH:mm") : ""
+    coordX.value = curr?.value?.coordX || 0
+    coordY.value = curr?.value?.coordY || 0
+  }
+
+  const cancelEditEvent = (): void => {
+    editMode.value = false
+  }
+
+  const saveEvent = (
+    iId: number,
+    innerName: string,
+    iSelectedDate: Date | null,
+    iTimePicker: string | null,
+    innerCoordX: number,
+    innerCoordY: number,
+  ): void => {
+    const datePart = iSelectedDate ? dayjs(iSelectedDate).format("YYYY-MM-DD") : ""
+    const timePart = iTimePicker || "00:00"
+    let tzOffset = dayjs().format("Z")
+    if (tzOffset === "Z") tzOffset = "+00:00"
+    const innerDatetime = iSelectedDate ? `${datePart}T${timePart}:00.000${tzOffset}` : ""
+
+    const innerEvent: ourEventType = {
+      id: iId,
+      name: innerName,
+      datetime: innerDatetime,
+      coordX: innerCoordX,
+      coordY: innerCoordY,
+    }
+    // console.log("innerEvent = ", JSON.stringify(innerEvent))
+    const tempIndex = ourEventsStore.value.findIndex((ev) => ev.id === iId)
+    if (tempIndex !== -1) {
+      ourEventsStore.value.splice(tempIndex, 1, innerEvent)
+    }
+
+    // curr.value = ourEventsStore.value.find((ev) => ev.id === innerId)
+    // not work!
+    cancelEditEvent()
+  }
+
   return {
     name,
     selectedDate,
@@ -115,6 +163,10 @@ export function useOurEvent(): useOurEventType {
     sortDesc,
     search,
     filteredEvents,
+    editMode,
+    editEvent,
+    cancelEditEvent,
+    saveEvent,
   }
 }
 
@@ -134,4 +186,15 @@ type useOurEventType = {
   sortDesc: () => void
   search: Ref<string>
   filteredEvents: Ref<ourEventType[]>
+  editMode: Ref<boolean>
+  editEvent: () => void
+  cancelEditEvent: () => void
+  saveEvent: (
+    iId: number,
+    innerName: string,
+    iSelectedDate: Date | null,
+    iTimePicker: string | null,
+    innerCoordX: number,
+    innerCoordY: number,
+  ) => void
 }

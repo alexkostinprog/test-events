@@ -1,1 +1,2 @@
 export const STORAGE_KEY = "Our_Events"
+export const API_KEY_WEATHER = "NZ6AXSED74RFWWRHALRZFDBSC"
