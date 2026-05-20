@@ -1,11 +1,17 @@
 <template>
   <div class="caption">Конкретное событие</div>
-  <div v-if="curr && !editMode">
-    <div class="name">Название: {{ curr.name }}</div>
-    <div class="name">Дата и время: {{ formatedDate(curr.datetime) }}</div>
-    <div class="name">X: {{ curr.coordX }}</div>
-    <div class="name">Y: {{ curr.coordY }}</div>
-  </div>
+  <v-card v-if="curr && !editMode" variant="elevated" width="300" color="indigo-darken-3">
+    <v-card-item>
+      <v-card-title>
+        Название: <b>{{ curr.name }}</b>
+      </v-card-title>
+      <v-card-subtitle>Дата и время: {{ formatedDate(curr.datetime) }}</v-card-subtitle>
+    </v-card-item>
+    <v-card-text>
+      <div class="name">Долгота: {{ curr.coordX }}</div>
+      <div class="name">Широта: {{ curr.coordY }}</div>
+    </v-card-text>
+  </v-card>
 
   <div v-if="curr && editMode">
     <v-container>
@@ -37,9 +43,11 @@
     </v-container>
   </div>
 
-  <div v-if="!editMode">
-    <v-btn class="px-20" @click="editEvent">Edit Event</v-btn>
-    <v-btn class="saveBtn" @click="loadWeather">Get Weather</v-btn>
+  <div v-if="!editMode" class="buttonsLine">
+    <v-btn class="px-20" color="red" variant="elevated" @click="editEvent">Edit Event</v-btn>
+    <v-btn class="saveBtn" color="indigo" variant="elevated" @click="loadWeather">
+      Get Weather
+    </v-btn>
     <div v-if="temperature">Temp: {{ temperature }}</div>
   </div>
 
@@ -59,7 +67,7 @@
 import { useEventsStore } from "@/store/store"
 import { useRoute } from "vue-router"
 import dayjs from "dayjs"
-import { computed, ref } from "vue"
+import { computed } from "vue"
 import { useOurEvent, type ourEventType } from "@/components/composables/useOurEvent"
 import { useWeather } from "@/components/composables/useWeather"
 
@@ -110,10 +118,18 @@ const { temperature, loadWeather } = useWeather(curr)
   font:
     700 24px/28px Verdana,
     serif;
-  padding: 24px 0;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  background-color: blueviolet;
+  width: max-content;
 }
 
 .saveBtn {
-  margin-left: 36px;
+  margin-left: 24px;
+}
+
+.buttonsLine {
+  margin-top: 24px;
 }
 </style>
