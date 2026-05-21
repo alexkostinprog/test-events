@@ -5,7 +5,9 @@
       <v-card-title>
         Название: <b>{{ curr.name }}</b>
       </v-card-title>
-      <v-card-subtitle>Дата и время: {{ formatedDate(curr.datetime) }}</v-card-subtitle>
+      <v-card-subtitle>
+        Дата и время: <b>{{ formatedDate(curr.datetime) }}</b>
+      </v-card-subtitle>
     </v-card-item>
     <v-card-text>
       <div class="name">Долгота: {{ curr.coordX }}</div>
