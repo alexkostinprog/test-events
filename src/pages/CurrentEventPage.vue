@@ -1,6 +1,9 @@
 <template>
+  <router-link to="/">
+    <div class="goToMain">⇐ На Главную</div>
+  </router-link>
   <div class="caption">Конкретное событие</div>
-  <v-card v-if="curr && !editMode" variant="elevated" width="300" color="indigo-darken-3">
+  <v-card v-if="curr && !editMode" variant="elevated" width="312" color="indigo-darken-3">
     <v-card-item>
       <v-card-title>
         Название: <b>{{ curr.name }}</b>
@@ -46,21 +49,21 @@
   </div>
 
   <div v-if="!editMode" class="buttonsLine">
-    <v-btn class="px-20" color="red" variant="elevated" @click="editEvent">Edit Event</v-btn>
+    <v-btn class="px-20" color="red" variant="elevated" @click="editEvent">Редактировать</v-btn>
     <v-btn class="saveBtn" color="indigo" variant="elevated" @click="loadWeather">
-      Get Weather
+      Запросить погоду!
     </v-btn>
-    <div v-if="temperature">Temp: {{ temperature }}</div>
+    <div v-if="temperature">Температура: {{ temperature }}</div>
   </div>
 
   <div v-if="editMode">
-    <v-btn @click="cancelEditEvent">Cancel Edit Event</v-btn>
+    <v-btn @click="cancelEditEvent">Отмена Редактирования</v-btn>
     <v-btn
       class="saveBtn"
       @click="
         saveEvent(curr?.id || 0, name, selectedDate || null, timePicker || null, coordX, coordY)
       "
-      >Save Event</v-btn
+      >Сохранить</v-btn
     >
   </div>
 </template>
@@ -133,5 +136,9 @@ const { temperature, loadWeather } = useWeather(curr)
 
 .buttonsLine {
   margin-top: 24px;
+}
+
+.goToMain {
+  padding: 12px 0 24px 0;
 }
 </style>

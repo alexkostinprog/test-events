@@ -13,4 +13,17 @@ const vuetify = createVuetify({
   directives,
 })
 
+import "@mdi/font/css/materialdesignicons.css" // <-- КРИТИЧЕСКИ ВАЖНО
+import { aliases, mdi } from "vuetify/iconsets/mdi"
+
+export default createVuetify({
+  icons: {
+    defaultSet: "mdi",
+    aliases,
+    sets: {
+      mdi,
+    },
+  },
+})
+
 createApp(App).use(router).use(vuetify).mount("#app")

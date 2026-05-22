@@ -30,7 +30,7 @@ export const EventListHard = [
   },
 ]
 
-export function useOurEvent(curr: ComputedRef<ourEventType>): useOurEventType {
+export function useOurEvent(curr?: ComputedRef<ourEventType>): useOurEventType {
   const name = ref("")
   const selectedDate = ref<Date | null>(null)
   const timePicker = ref<string | null>(null)
@@ -45,9 +45,10 @@ export function useOurEvent(curr: ComputedRef<ourEventType>): useOurEventType {
       alert("Name required!") //
       return
     }
-    const datetime = selectedDate.value
-      ? selectedDate.value?.toISOString().substring(0, 11) + timePicker.value + ":00.000+03:00"
-      : ""
+    const datetime =
+      selectedDate.value && timePicker.value
+        ? selectedDate.value?.toISOString().substring(0, 11) + timePicker.value + ":00.000+03:00"
+        : ""
 
     ourEventsStore.value.push({
       id: Date.now(),

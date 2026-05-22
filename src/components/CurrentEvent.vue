@@ -6,7 +6,15 @@
     <div class="datetime">{{ getDateTime(ourEvent.datetime) }}</div>
     <div class="coordX">Координата Х: {{ ourEvent.coordX }}</div>
     <div class="coordY">Координата Y: {{ ourEvent.coordY }}</div>
-    <v-btn variant="outlined" @click="deleteEvent(ourEvent.id)">Delete</v-btn>
+    <v-btn
+      class="deleteButton"
+      variant="outlined"
+      color="error"
+      prepend-icon="mdi-delete-outline"
+      rounded="lg"
+      @click="deleteEvent(ourEvent.id)"
+      >Delete</v-btn
+    >
   </div>
 </template>
 
@@ -41,5 +49,9 @@ const { deleteEvent } = useOurEvent()
 
 .caption {
   font: 500 22px/24px serif;
+}
+
+.deleteButton {
+  margin-top: 12px;
 }
 </style>
