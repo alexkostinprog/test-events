@@ -8,6 +8,6 @@
 .headerPage {
   /* padding: 20px; */
   position: sticky;
-  border-bottom: solid 1px rgba(255, 0, 0, 0.1);
+  border-bottom: solid 1px rgba(66, 66, 236, 0.3);
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
   <div class="footerPage">
-    <v-container> All Rights Reserved </v-container>
+    <v-container> &copy; All Rights Reserved. 2026 </v-container>
   </div>
 </template>
 
 <style scoped>
 .footerPage {
-  border-top: solid 1px rgba(255, 0, 0, 0.1);
+  border-top: solid 1px rgba(66, 66, 236, 0.3);
 }
 </style>

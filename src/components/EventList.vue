@@ -1,18 +1,18 @@
 <template>
-  <v-container>
-    <v-text-field
-      v-model="search"
-      label="Фильтр по Названию"
-      placeholder="С третьего символа"
-      variant="outlined"
-    ></v-text-field>
-  </v-container>
+  <v-text-field
+    v-model="search"
+    label="Фильтр по Названию"
+    placeholder="С третьего символа"
+    variant="outlined"
+    prepend-inner-icon="mdi-magnify"
+    color="blue"
+  ></v-text-field>
 
   <div class="eventList">
     <CurrentEvent v-for="ourEvent in filteredEvents" :key="ourEvent.id" :ourEvent="ourEvent" />
   </div>
 
-  <v-container class="d-flex justify-center ga-4">
+  <v-container class="d-flex justify-center ga-4 mt-5">
     <v-dialog max-width="500">
       <template v-slot:activator="{ props: activatorProps }">
         <v-btn
@@ -20,6 +20,7 @@
           color="surface-variant"
           text="Add Event"
           variant="flat"
+          prepend-icon="mdi-plus-circle"
         ></v-btn>
       </template>
 
@@ -75,9 +76,35 @@
         </v-card>
       </template>
     </v-dialog>
-    <v-btn variant="outlined" class="px-20" @click="sortAsc"> Sort ASC </v-btn>
-    <v-btn variant="outlined" class="px-20" @click="sortDesc"> Sort DESC </v-btn>
-    <v-btn variant="outlined" class="px-20" @click="clearStore"> Clear Storage </v-btn>
+    <v-btn variant="outlined" class="px-20" @click="sortAsc" prepend-icon="mdi-sort-ascending">
+      Sort ASC
+    </v-btn>
+    <v-btn variant="outlined" class="px-20" @click="sortDesc" prepend-icon="mdi-sort-descending">
+      Sort DESC
+    </v-btn>
+    <v-btn class="px-20" @click="clearStore" prepend-icon="mdi-close-circle" color="red">
+      Clear Storage
+    </v-btn>
+
+    <v-snackbar
+      v-model="showErrorSnackbar"
+      color="error"
+      timeout="3000"
+      location="bottom center"
+      rounded="lg"
+      elevation="24"
+    >
+      <div class="d-flex align-center">
+        <!-- Иконка предупреждения -->
+        <v-icon start icon="mdi-alert-circle-outline" class="mr-2"></v-icon>
+        <span>Название события - обязательное поле!</span>
+      </div>
+
+      <!-- Кнопка закрытия внутри уведомления -->
+      <template #actions>
+        <v-btn variant="text" icon="mdi-close" @click="showErrorSnackbar = false"></v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -100,6 +127,7 @@ const {
   sortDesc,
   search,
   filteredEvents,
+  showErrorSnackbar,
 } = useOurEvent()
 </script>
 

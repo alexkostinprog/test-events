@@ -39,10 +39,11 @@ export function useOurEvent(curr?: ComputedRef<ourEventType>): useOurEventType {
   const coordY = ref(0)
   const search = ref("")
   const { ourEventsStore } = useEventsStore()
+  const showErrorSnackbar = ref(false)
 
   const addEvent = () => {
     if (!name.value) {
-      alert("Name required!") //
+      showErrorSnackbar.value = true
       return
     }
     const datetime =
@@ -168,6 +169,7 @@ export function useOurEvent(curr?: ComputedRef<ourEventType>): useOurEventType {
     editEvent,
     cancelEditEvent,
     saveEvent,
+    showErrorSnackbar,
   }
 }
 
@@ -198,4 +200,5 @@ type useOurEventType = {
     innerCoordX: number,
     innerCoordY: number,
   ) => void
+  showErrorSnackbar: Ref<boolean>
 }

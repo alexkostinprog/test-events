@@ -9,12 +9,13 @@
     <v-btn
       class="deleteButton"
       variant="outlined"
-      color="error"
+      color="red"
       prepend-icon="mdi-delete-outline"
       rounded="lg"
       @click="deleteEvent(ourEvent.id)"
-      >Delete</v-btn
     >
+      Удалить
+    </v-btn>
   </div>
 </template>
 
@@ -43,7 +44,7 @@ const { deleteEvent } = useOurEvent()
 .currentEvent {
   padding: 20px;
   border-radius: 16px;
-  border: 1px solid red;
+  border: 1px solid rgb(66, 66, 236);
   width: 200px;
 }
 
