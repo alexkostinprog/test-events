@@ -52,6 +52,17 @@ git clone https://github.com/alexkostinprog/test-events/tree/main
 cd test-events
 ```
 
+### 2. Настройка переменных окружения (API Key)
+
+Для работы интеграции с погодой необходимо настроить ключ доступа:
+
+1. Скопируйте файл конфигурации-примера:
+   ```bash
+   cp .env.example .env
+   ```
+   _(Для Windows в PowerShell: `copy .env.example .env`)_
+2. Откройте созданный файл `.env` и вставьте ваш личный API-ключ погодного сервиса в переменную `VITE_WEATHER_API_KEY`.
+
 ### 2. Установка зависимостей
 
 ```bash
