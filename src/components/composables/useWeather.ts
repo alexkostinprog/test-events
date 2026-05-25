@@ -9,7 +9,7 @@ export function useWeather(): useWeatherType {
 
   const loadWeather = async (innerEvent: ourEventType): Promise<void> => {
     try {
-      console.log("useWeather innerEvent = ", JSON.stringify(toValue(innerEvent)))
+      // console.log("useWeather innerEvent = ", JSON.stringify(toValue(innerEvent)))
       const toValueEvent = toValue(innerEvent)
       const lat = toValueEvent.coordX
       const lon = toValueEvent.coordY

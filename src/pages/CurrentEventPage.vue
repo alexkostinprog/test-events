@@ -2,9 +2,16 @@
   <router-link to="/">
     <div class="goToMain">⇐ На Главную</div>
   </router-link>
+
   <div class="caption">Конкретное событие</div>
 
-  <v-card v-if="curr && !editMode" variant="elevated" width="358" color="indigo-darken-3">
+  <v-card
+    v-if="curr && !editMode"
+    variant="elevated"
+    width="358"
+    color="indigo-darken-3"
+    class="myCard"
+  >
     <v-card-item>
       <v-card-title>
         Название: <b>{{ curr.name }}</b>
@@ -19,7 +26,7 @@
     </v-card-text>
   </v-card>
 
-  <div v-if="curr && editMode">
+  <div v-if="curr && editMode" class="editBlock">
     <v-text-field v-model="name" :rules="rules" label="Название" variant="outlined"></v-text-field>
     <v-menu :close-on-content-click="true" location="bottom">
       <!-- Активатор: поле ввода, по клику на которое откроется меню -->
@@ -61,18 +68,18 @@
     >
       Запросить погоду!
     </v-btn>
-    <div v-if="temperature" class="temp">
-      <v-icon class="mdi mdi-weather-cloudy"></v-icon>
-      Температура: {{ temperature }}
-    </div>
   </div>
 
-  <div v-if="editMode">
+  <div v-if="temperature && !editMode" class="temp">
+    <v-icon class="mdi mdi-weather-cloudy"></v-icon>
+    Температура: {{ temperature }}
+  </div>
+
+  <div v-if="editMode" class="buttonsLine">
     <v-btn color="red" prepend-icon="mdi-close-circle" @click="cancelEditEvent">
       Отмена Редактирования
     </v-btn>
     <v-btn
-      class="saveBtn"
       color="green"
       prepend-icon="mdi-content-save"
       @click="
@@ -139,16 +146,27 @@ const { temperature, loadWeather } = useWeather()
   margin-bottom: 24px;
   border-radius: 4px;
   background-color: blueviolet;
+  margin: 0 auto 12px;
   width: 358px;
   text-align: center;
 }
 
-.saveBtn {
-  margin-left: 24px;
+.myCard {
+  margin: 0 auto;
+}
+
+.editBlock {
+  max-width: 358px;
+  margin: 10px auto 0;
 }
 
 .buttonsLine {
-  margin-top: 24px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
 .goToMain {
@@ -157,7 +175,7 @@ const { temperature, loadWeather } = useWeather()
 
 .temp {
   padding: 6px;
-  margin-top: 24px;
+  margin: 24px auto;
   background-color: blanchedalmond;
   color: black;
   width: 358px;

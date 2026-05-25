@@ -48,7 +48,7 @@ export function useOurEvent(curr?: ComputedRef<ourEventType>): useOurEventType {
     }
     const datetime =
       selectedDate.value && timePicker.value
-        ? selectedDate.value?.toISOString().substring(0, 11) + timePicker.value + ":00.000+03:00"
+        ? dayjs(selectedDate.value).format("YYYY-MM-DD") + "T" + timePicker.value + ":00.000+03:00"
         : ""
 
     ourEventsStore.value.push({

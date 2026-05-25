@@ -12,7 +12,7 @@
     <CurrentEvent v-for="ourEvent in filteredEvents" :key="ourEvent.id" :ourEvent="ourEvent" />
   </div>
 
-  <v-container class="d-flex justify-center ga-4 mt-5">
+  <div class="buttonLine">
     <v-dialog max-width="500">
       <template v-slot:activator="{ props: activatorProps }">
         <v-btn
@@ -70,8 +70,17 @@
           </v-container>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn variant="outlined" @click="addEvent"> Add to Storage </v-btn>
-            <v-btn variant="outlined" text="Закрыть диалог" @click="isActive.value = false"></v-btn>
+            <v-btn variant="flat" prepend-icon="mdi-plus-circle" color="green" @click="addEvent">
+              Добавить
+            </v-btn>
+            <v-btn
+              variant="flat"
+              prepend-icon="mdi-close-circle"
+              color="red"
+              @click="isActive.value = false"
+            >
+              Закрыть
+            </v-btn>
           </v-card-actions>
         </v-card>
       </template>
@@ -82,28 +91,28 @@
     <v-btn variant="outlined" class="px-20" @click="sortDesc" prepend-icon="mdi-sort-descending">
       Sort DESC
     </v-btn>
-    <v-btn class="px-20" @click="clearStore" prepend-icon="mdi-close-circle" color="red">
-      Clear Storage
+    <v-btn class="px-20" prepend-icon="mdi-close-circle" color="red" @click="clearStore">
+      Очистить
     </v-btn>
+  </div>
 
-    <v-snackbar
-      v-model="showErrorSnackbar"
-      color="error"
-      timeout="3000"
-      location="bottom center"
-      rounded="lg"
-      elevation="24"
-    >
-      <div class="d-flex align-center">
-        <v-icon start icon="mdi-alert-circle-outline" class="mr-2"></v-icon>
-        <span>Название события - обязательное поле!</span>
-      </div>
+  <v-snackbar
+    v-model="showErrorSnackbar"
+    color="error"
+    timeout="3000"
+    location="bottom center"
+    rounded="lg"
+    elevation="24"
+  >
+    <div class="d-flex align-center">
+      <v-icon start icon="mdi-alert-circle-outline" class="mr-2"></v-icon>
+      <span>Название события - обязательное поле!</span>
+    </div>
 
-      <template #actions>
-        <v-btn variant="text" icon="mdi-close" @click="showErrorSnackbar = false"></v-btn>
-      </template>
-    </v-snackbar>
-  </v-container>
+    <template #actions>
+      <v-btn variant="text" icon="mdi-close" @click="showErrorSnackbar = false"></v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <script lang="ts" setup>
@@ -132,8 +141,26 @@ const {
 <style scoped>
 .eventList {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 20px;
+}
+
+.buttonLine {
+  padding: 24px 0 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+}
+
+@media (min-width: 420px) {
+  .eventList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .buttonLine {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }
 
 @media (min-width: 622px) {
