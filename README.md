@@ -4,13 +4,9 @@
 
 ## 📱 Скриншоты интерфейса
 
-![](image.png)
-<img src="./screenshots/image.png" width="737" height="614" alt="Скрин интерфейса" />
+## <img src="./screenshots/image.png" width="737" height="614" alt="Скрин интерфейса" />
 
----
-
-<img src="./screenshots/image-1.png" width="376" height="614" alt="Скрин интерфейса" />
-![Конкретное событие](image-1.png)
+<img src="./screenshots/image-1.png" width="376" height="319" alt="Страница конкретного события" />
 
 ## 🛠 Стек технологий
 
