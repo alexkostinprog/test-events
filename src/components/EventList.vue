@@ -17,8 +17,8 @@
       <template v-slot:activator="{ props: activatorProps }">
         <v-btn
           v-bind="activatorProps"
-          color="surface-variant"
-          text="Add Event"
+          color="green"
+          text="Добавить"
           variant="flat"
           prepend-icon="mdi-plus-circle"
         ></v-btn>
@@ -71,7 +71,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn variant="outlined" @click="addEvent"> Add to Storage </v-btn>
-            <v-btn variant="outlined" text="Close Dialog" @click="isActive.value = false"></v-btn>
+            <v-btn variant="outlined" text="Закрыть диалог" @click="isActive.value = false"></v-btn>
           </v-card-actions>
         </v-card>
       </template>
@@ -95,12 +95,10 @@
       elevation="24"
     >
       <div class="d-flex align-center">
-        <!-- Иконка предупреждения -->
         <v-icon start icon="mdi-alert-circle-outline" class="mr-2"></v-icon>
         <span>Название события - обязательное поле!</span>
       </div>
 
-      <!-- Кнопка закрытия внутри уведомления -->
       <template #actions>
         <v-btn variant="text" icon="mdi-close" @click="showErrorSnackbar = false"></v-btn>
       </template>
@@ -134,7 +132,19 @@ const {
 <style scoped>
 .eventList {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+}
+
+@media (min-width: 622px) {
+  .eventList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1145px) {
+  .eventList {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 </style>

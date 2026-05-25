@@ -72,7 +72,7 @@ export function useOurEvent(curr?: ComputedRef<ourEventType>): useOurEventType {
 
   const formattedDate = computed((): string => {
     if (!selectedDate.value) return ""
-    return new Date(selectedDate.value).toLocaleDateString("ru-RU")
+    return dayjs(selectedDate.value).format("DD.MM.YYYY")
   })
 
   const rules = [

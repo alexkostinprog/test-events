@@ -1,16 +1,16 @@
 import axios from "axios"
-import { ref, toValue, type ComputedRef, type Ref } from "vue"
+import { ref, toValue, type Ref } from "vue"
 import type { ourEventType } from "./useOurEvent"
 import dayjs from "dayjs"
 import { API_KEY_WEATHER } from "@/settings"
 
-export function useWeather(innerEvent: ComputedRef<ourEventType>): useWeatherType {
-  // console.log("useWeather innerEvent = ", JSON.stringify(toValue(innerEvent)))
-  const toValueEvent = toValue(innerEvent)
+export function useWeather(): useWeatherType {
   const temperature = ref(0)
 
-  const loadWeather = async (): Promise<void> => {
+  const loadWeather = async (innerEvent: ourEventType): Promise<void> => {
     try {
+      console.log("useWeather innerEvent = ", JSON.stringify(toValue(innerEvent)))
+      const toValueEvent = toValue(innerEvent)
       const lat = toValueEvent.coordX
       const lon = toValueEvent.coordY
       const formattedDate = dayjs(toValueEvent.datetime).format("YYYY-MM-DD")
@@ -32,5 +32,5 @@ export function useWeather(innerEvent: ComputedRef<ourEventType>): useWeatherTyp
 
 type useWeatherType = {
   temperature: Ref<number>
-  loadWeather: () => Promise<void>
+  loadWeather: (innerEvent: ourEventType) => Promise<void>
 }
