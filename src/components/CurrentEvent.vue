@@ -35,8 +35,6 @@ defineProps({
   },
 })
 
-// const getDateTime = (innerTime: string) => dayjs(innerTime).format("DD.MM.YYYY hh:mm")
-
 const { deleteEvent } = useOurEvent()
 </script>
 
@@ -45,7 +43,6 @@ const { deleteEvent } = useOurEvent()
   padding: 20px;
   border-radius: 16px;
   border: 1px solid rgb(66, 66, 236);
-  /* width: 200px; */
 }
 
 .caption {
