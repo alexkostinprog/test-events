@@ -2,7 +2,8 @@ import axios from "axios"
 import { ref, toValue, type Ref } from "vue"
 import type { ourEventType } from "./useOurEvent"
 import dayjs from "dayjs"
-import { API_KEY_WEATHER } from "@/settings"
+
+const API_KEY_WEATHER = import.meta.env.VITE_WEATHER_API_KEY
 
 export function useWeather(): useWeatherType {
   const temperature = ref(0)
