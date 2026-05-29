@@ -16,6 +16,13 @@ export function useWeather(): useWeatherType {
       const lon = toValueEvent.coordY
       const formattedDate = dayjs(toValueEvent.datetime).format("YYYY-MM-DD")
       const apiKey = API_KEY_WEATHER
+      if (!apiKey) {
+        console.error(
+          "Ошибка: Переменная VITE_WEATHER_API_KEY не задана. " +
+            "Пожалуйста, настройте файл .env по инструкции в README.",
+        )
+        return
+      }
       const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/${formattedDate}?key=${apiKey}&unitGroup=metric&lang=ru&contentType=json&elements=datetime,tempmax,tempmin`
       const response = await axios(url)
 
